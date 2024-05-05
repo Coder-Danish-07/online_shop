@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Laravel Shop :: Administrative Panel</title>
 		<!-- Google Font: Source Sans Pro -->
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 		<!-- Font Awesome -->
 		<link rel="stylesheet" href="{{asset('admin-assets/plugins/fontawesome-free/css/all.min.css')}}">
@@ -81,5 +82,13 @@
 		<script src="{{asset('admin-assets/js/adminlte.min.js')}}"></script>
 		<!-- AdminLTE for demo purposes -->
 		{{-- <script src="js/demo.js"></script> --}}
+		<script>
+			$.ajaxSetup({
+				headers:{
+					'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+				}
+			});
+		</script>
+		@yield('customJS')
 	</body>
 </html>
