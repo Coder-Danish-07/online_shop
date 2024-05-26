@@ -19,3 +19,5 @@ yarn-error.log
 
 # Ignore everything in the storage directory
 /storage/*
+/public/*
+/storage/framework/*
