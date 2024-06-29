@@ -21,3 +21,5 @@ yarn-error.log
 /storage/*
 /public/*
 /storage/framework/*
+storage/logs/laravel.log
+storage/framework/views/*

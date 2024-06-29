@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::delete('/brands/{brand}',[BrandController::class,'destroy'])->name('brands.delete');
 
         //Product Routes
+        Route::get('/products',[ProductControlller::class,'index'])->name('products.index');
         Route::get('/products/create',[ProductControlller::class,'create'])->name('products.create');
         Route::post('/products',[ProductControlller::class,'store'])->name('products.store');
 

@@ -185,7 +185,7 @@
         
         <div class="pb-5 pt-3">
             <button type="submit" class="btn btn-primary">Create</button>
-            <a href="products.html" class="btn btn-outline-dark ml-3">Cancel</a>
+            <a href="{{route('products.index')}}" class="btn btn-outline-dark ml-3">Cancel</a>
         </div>
     </div>
 </form>
@@ -209,7 +209,9 @@ $("#ProductForm").submit(function(event){
             success:function(response){
                 $("button[type=submit]").prop('disabled',false);
                 if(response['status'] == true){
-
+                    $(".error").removeClass('invalid-feedback').html('');
+                    $("input[type='text'],select,input[type='number']").removeClass('is-invalid');
+                    window.location.href = "{{route('products.index')}}";
                 }
                 else{
                     var errors = response['errors'];

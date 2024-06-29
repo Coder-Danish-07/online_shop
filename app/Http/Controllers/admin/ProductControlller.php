@@ -14,6 +14,17 @@ use Image;
 
 class ProductControlller extends Controller
 {
+    public function index(Request $request){
+
+        $products = Product::latest('id')->with('product_images');
+        if($request->get('keyword') != ""){
+            $products = $products->where('title','like','%'.$request->keyword.'%');
+        }
+        $products = $products->paginate(10);
+        // dd($products);
+        $data['products'] = $products; 
+        return view('admin.product.index',$data);
+    }
     public function create(){
         $categories = Category::orderBy('name','ASC')->get();
         $data['categories'] = $categories;
@@ -83,7 +94,7 @@ class ProductControlller extends Controller
 
                     //Large Thumbnail
                     $sourcePath = public_path().'/temp/'.$tempImageInfo->name;
-                    $destPath = public_path().'/uploads/product/large/'.$tempImageInfo->name;
+                    $destPath = public_path().'/uploads/product/large/'.$imageName;
                     $image = Image::make($sourcePath);
                     $image->resize(1400, null, function ($constraint) {
                         $constraint->aspectRatio();
@@ -91,7 +102,7 @@ class ProductControlller extends Controller
                     $image->save($destPath);
 
                     //Small Thumbnail
-                    $destPath = public_path().'/uploads/product/small/'.$tempImageInfo->name;
+                    $destPath = public_path().'/uploads/product/small/'.$imageName;
                     $image = Image::make($sourcePath);
                     $image->fit(300,300);
                     $image->save($destPath);
