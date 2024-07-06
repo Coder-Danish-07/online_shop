@@ -6,7 +6,7 @@
     <div class="container-fluid my-2">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Create Product</h1>
+                <h1>Edit Product</h1>
             </div>
             <div class="col-sm-6 text-right">
                 <a href="{{route('products.index')}}" class="btn btn-primary">Back</a>
@@ -28,21 +28,21 @@
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="title">Title</label>
-                                    <input type="text" name="title" id="title" class="form-control" placeholder="Title">
+                                    <input type="text" name="title" id="title" class="form-control" placeholder="Title" value="{{$products->title}}">
                                     <p class="error"></p>	
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="title">Slug</label>
-                                    <input type="text" readonly name="slug" id="slug" class="form-control" placeholder="Slug">	
+                                    <input type="text" readonly name="slug" id="slug" class="form-control" placeholder="Slug" value="{{$products->slug}}">	
                                     <p class="error"></p>	
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="description">Description</label>
-                                    <textarea name="description" id="description" cols="30" rows="10" class="summernote" placeholder="Description"></textarea>
+                                    <textarea name="description" id="description" cols="30" rows="10" class="summernote" placeholder="Description" >{{$products->description}}</textarea>
                                 </div>
                             </div>                                            
                         </div>
@@ -59,6 +59,17 @@
                     </div>	                                                                      
                 </div>
                 <div class="row" id="product-gallery">
+                    @if($productImage->isNotEmpty())
+                       @foreach($productImage as $image)
+                       <div class="col-md-3" id="image-row-{{$image->id}}"><div class="card" >
+                        <input type="hidden" name="image_array[]" value="{{$image->id}}">
+                        <img src="{{asset('uploads/product/small/'.$image->image)}}" class="card-img-top" alt="">
+                        <div class="card-body">
+                        <a href="javascript:void(0)" onclick="deleteImage({{$image->id}})" class="btn btn-danger">Delete</a>
+                         </div>
+                        </div></div>
+                       @endforeach
+                    @endif
                 </div>
                 <div class="card mb-3">
                     <div class="card-body">
@@ -67,14 +78,14 @@
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="price">Price</label>
-                                    <input type="text" name="price" id="price" class="form-control" placeholder="Price">
+                                    <input type="text" name="price" id="price" class="form-control" placeholder="Price" value="{{$products->price}}">
                                     <p class="error"></p>	
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="compare_price">Compare at Price</label>
-                                    <input type="text" name="compare_price" id="compare_price" class="form-control" placeholder="Compare Price">
+                                    <input type="text" name="compare_price" id="compare_price" class="form-control" placeholder="Compare Price" value="{{$products->compare_price}}">
                                     <p class="text-muted mt-3">
                                         To show a reduced price, move the product’s original price into Compare at price. Enter a lower value into Price.
                                     </p>	
@@ -90,27 +101,27 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="sku">SKU (Stock Keeping Unit)</label>
-                                    <input type="text" name="sku" id="sku" class="form-control" placeholder="sku">
+                                    <input type="text" name="sku" id="sku" class="form-control" placeholder="sku" value="{{$products->sku}}">
                                     <p class="error"></p>	
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="barcode">Barcode</label>
-                                    <input type="text" name="barcode" id="barcode" class="form-control" placeholder="Barcode">	
+                                    <input type="text" name="barcode" id="barcode" class="form-control" placeholder="Barcode" value="{{$products->barcode}}">	
                                 </div>
                             </div>   
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <div class="custom-control custom-checkbox">
-                                        <input class="custom-control-input" type="checkbox" id="track_qty" name="track_qty" value="Yes" checked>
+                                        <input class="custom-control-input" type="checkbox" id="track_qty" name="track_qty" value="Yes" {{ ($products->track_qty == 'Yes') ? 'checked':'' }} >
                                         <p class="error"></p>	
                                         <label for="track_qty" class="custom-control-label">Track Quantity</label>
                                     </div>
                                     <input type="hidden" name="track_qty" value="No">
                                 </div>
                                 <div class="mb-3">
-                                    <input type="number" min="0" name="qty" id="qty" class="form-control" placeholder="Qty">
+                                    <input type="number" min="0" name="qty" id="qty" class="form-control" placeholder="Qty" value="{{$products->qty}}">
                                     <p class="error"></p>	
                                 </div>
                             </div>                                         
@@ -124,8 +135,8 @@
                         <h2 class="h4 mb-3">Product status</h2>
                         <div class="mb-3">
                             <select name="status" id="status" class="form-control">
-                                <option value="1">Active</option>
-                                <option value="0">Block</option>
+                                <option {{($products->status == 1) ? 'selected':''}} value="1">Active</option>
+                                <option {{($products->status == 0) ? 'selected':''}} value="0">Block</option>
                             </select>
                         </div>
                     </div>
@@ -139,7 +150,7 @@
                                 <option value="">Select a category</option>
                                 @if($categories->isNotEmpty())
                                 @foreach($categories as $category)
-                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                <option {{($products->category_id == $category->id)?'selected':''}} value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach
                                 @endif
                             </select>
@@ -149,6 +160,11 @@
                             <label for="category">Sub category</label>
                             <select name="sub_category" id="sub_category" class="form-control">
                                 <option value="">Select a sub category</option>
+                                @if($subCategories->isNotEmpty())
+                                @foreach($subCategories as $subCategory)
+                                <option {{($products->sub_category_id == $subCategory->id)?'selected':''}} value="{{$subCategory->id}}">{{$subCategory->name}}</option>
+                                @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -161,7 +177,7 @@
                                 <option value="">Select a brand</option>
                                 @if($brands->isNotEmpty())
                                 @foreach($brands as $brand)
-                                <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                <option {{($products->brand_id == $brand->id)?'selected':''}} value="{{$brand->id}}">{{$brand->name}}</option>
                                 @endforeach
                                 @endif
                             </select>
@@ -173,8 +189,8 @@
                         <h2 class="h4 mb-3">Featured product</h2>
                         <div class="mb-3">
                             <select name="is_featured" id="is_featured" class="form-control">
-                                <option value="No">No</option>
-                                <option value="Yes">Yes</option>                                                
+                                <option {{($products->is_featured == 'No')?'selected':''}} value="No">No</option>
+                                <option {{($products->is_featured == 'Yes')?'selected':''}} value="Yes">Yes</option>                                                
                             </select>
                             <p class="error"></p>	
                         </div>
@@ -184,7 +200,7 @@
         </div>
         
         <div class="pb-5 pt-3">
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Update</button>
             <a href="{{route('products.index')}}" class="btn btn-outline-dark ml-3">Cancel</a>
         </div>
     </div>
@@ -202,8 +218,8 @@ $("#ProductForm").submit(function(event){
         var formArray = $(this).serializeArray();
         $("button[type=submit]").prop('disabled',true);
         $.ajax({
-            url:'{{route("products.store")}}',
-            type:'post',
+            url:'{{route("products.update",$products->id)}}',
+            type:'put',
             data:formArray,
             dataType:'json',
             success:function(response){
@@ -280,16 +296,10 @@ $('#category').change(function(){
 //image Dropzone Code
 Dropzone.autoDiscover = false;
 const dropzone = $("#image").dropzone({
-    // init:function(){
-    //     this.on('addedfile',function(file){
-    //         if(this.files.length > 1){
-    //             this.removeFile(this.files[0]);
-    //         }
-    //     });
-    // },
-    url:"{{ route('temp_image.create') }}",
+    url:"{{ route('product-images.update') }}",
     maxFiles:10,
     paramName:'image',
+    params:{'product_id': '{{$products->id}}' },
     addRemoveLinks:true,
     acceptedFiles:"image/jpeg,image/png,image/gif",
     headers:{
@@ -313,6 +323,23 @@ const dropzone = $("#image").dropzone({
 
 function deleteImage(id){
     $("#image-row-"+id).remove();
+    if(confirm("Are you sure you want to delete image?")){
+        $.ajax({
+        url:'{{ route("product-images.destroy")}}',
+        type:'delete',
+        data:{id:id},
+        success:function(response){
+            if(response.status == true){
+                alert(response.message);
+            }
+            else{
+                alert(response.message);
+            }
+        }
+
+    });
+    }
+  
 }
 </script>
 @endsection
