@@ -23,3 +23,9 @@ yarn-error.log
 /storage/framework/*
 storage/logs/laravel.log
 storage/framework/views/*
+/storage/framework/views/*
+composer.lock
+vendor/composer/*
+/vendor/composer/*
+vendor/*
+/vendor/*

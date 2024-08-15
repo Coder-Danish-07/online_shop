@@ -10,12 +10,14 @@ use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\admin\ProductControlller;
 use App\Http\Controllers\admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
+use App\Http\Controllers\FrontController;
 use Illuminate\Http\Request;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
+Route::get('/',[FrontController::class,'index'])->name('front.home');
 // Route::get('/admin/login',[AdminLoginController::class,'index'])->name('admin.login');
 
 Route::group(['prefix' => 'admin'],function(){

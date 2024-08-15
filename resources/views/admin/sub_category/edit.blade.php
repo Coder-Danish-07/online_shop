@@ -47,7 +47,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="slug">Slug</label>
-                                    <input type="text" value="{{$subCategory->slug}}" readonly name="slug" id="slug" class="form-control" placeholder="Slug">	
+                                    <input type="text" value="{{$subCategory->slug}}" name="slug" id="slug" class="form-control" placeholder="Slug">	
                                     <p></p>
                                 </div>
                             </div>
@@ -60,7 +60,17 @@
                                         <p></p>
                                     </select>
                                 </div>
-                            </div>											
+                            </div>	
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="showHome">Show on Home</label>
+                                    <select name="showHome" id="showHome" class="form-control">
+                                        <option {{($subCategory->showHome == 'Yes') ? 'Selected':''}} value="Yes">Yes</option>
+                                        <option {{($subCategory->showHome == 'No') ? 'Selected':''}} value="No">No</option>
+                                        <p></p>
+                                    </select>
+                                </div>
+                            </div>										
                         </div>
                     </div>							
                 </div>

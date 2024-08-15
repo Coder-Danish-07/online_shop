@@ -54,10 +54,19 @@
                             <label for="status">Status</label>
                             <select name="status" id="status" class="form-control" placeholder="Slug">
                                 <option value="1">Active</option>
-                                <option value="2">Block</option>
+                                <option value="0">Block</option>
                             </select>	
                         </div>
-                    </div>									
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="status">Show on Home</label>
+                            <select name="showHome" id="showHome" class="form-control" placeholder="Slug">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>	
+                        </div>
+                    </div>										
                 </div>
             </div>							
         </div>
