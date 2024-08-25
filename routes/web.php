@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\ProductControlller;
 use App\Http\Controllers\admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Http\Request;
 
 // Route::get('/', function () {
@@ -18,6 +19,8 @@ use Illuminate\Http\Request;
 // });
 
 Route::get('/',[FrontController::class,'index'])->name('front.home');
+Route::get('/shop/{categorySlug?}/{subCategorySlug?}',[ShopController::class,'index'])->name('front.shop');
+
 // Route::get('/admin/login',[AdminLoginController::class,'index'])->name('admin.login');
 
 Route::group(['prefix' => 'admin'],function(){
