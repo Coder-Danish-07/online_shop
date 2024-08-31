@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="{{asset('admin-assets/plugins/fontawesome-free/css/all.min.css')}}">
 		<link rel="stylesheet" href="{{asset('admin-assets/plugins/dropzone/min/dropzone.min.css')}}">
         <link rel="stylesheet" href="{{asset('admin-assets/plugins/summernote/summernote-bs4.min.css')}}">
+        <link rel="stylesheet" href="{{asset('admin-assets/plugins/select2/css/select2.min.css')}}">
 		<!-- Theme style -->
 		<link rel="stylesheet" href="{{asset('admin-assets/css/adminlte.min.css')}}">
 		<link rel="stylesheet" href="{{asset('admin-assets/css/custom.css')}}">
@@ -80,6 +81,7 @@
 		<script src="{{asset('admin-assets/plugins/jquery/jquery.min.js')}}"></script>
 		<script src="{{asset('admin-assets/plugins/dropzone/min/dropzone.min.js')}}"></script>
         <script src="{{asset('admin-assets/plugins/summernote/summernote-bs4.min.js')}}"></script>
+        <script src="{{asset('admin-assets/plugins/select2/js/select2.min.js')}}"></script>
 
 		<!-- Bootstrap 4 -->
 		<script src="{{asset('admin-assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

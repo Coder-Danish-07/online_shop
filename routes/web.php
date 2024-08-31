@@ -66,7 +66,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/products/{product}/edit',[ProductControlller::class,'edit'])->name('products.edit');
         Route::put('/products/{product}',[ProductControlller::class,'update'])->name('products.update');
         Route::delete('/products/{product}',[ProductControlller::class,'destroy'])->name('products.delete');
-
+        Route::get('/get-products',[ProductControlller::class,'getProducts'])->name('products.getProducts');
 
         //Product Image Update Route
         Route::post('/product-images/update',[ProductImageController::class,'update'])->name('product-images.update');
