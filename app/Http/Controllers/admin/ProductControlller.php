@@ -71,6 +71,8 @@ class ProductControlller extends Controller
             $product->sub_category_id = $request->sub_category;
             $product->brand_id = $request->brand;
             $product->is_featured = $request->is_featured;
+            $product->short_description = $request->short_description;
+            $product->shipping_returns = $request->shipping_returns;
             $product->save();
 
             //Save Gallery Pics
@@ -190,6 +192,8 @@ class ProductControlller extends Controller
             $product->sub_category_id = $request->sub_category;
             $product->brand_id = $request->brand;
             $product->is_featured = $request->is_featured;
+            $product->short_description = $request->short_description;
+            $product->shipping_returns = $request->shipping_returns;
             $product->save();
             
             $request->session()->flash('success','Product Updated Successfully');
