@@ -5,6 +5,7 @@
 	<title>Laravel Online Shop</title>
 	<meta name="description" content="" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=no" />
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 	<meta name="HandheldFriendly" content="True" />
 	<meta name="pinterest" content="nopin" />
@@ -229,6 +230,31 @@ function myFunction() {
   } else {
     navbar.classList.remove("sticky");
   }
+}
+
+$.ajaxSetup({
+	headers:{
+		'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+		}
+});
+
+function addToCart(id){
+    
+    $.ajax({
+        url: "{{ route('front.addToCart')}}",
+        type: 'post',
+        data: {id:id},
+        dataType: 'json',
+        success: function(response){
+            if(response.status == true){
+                window.location.href = "{{ route('front.cart')}}"
+            }
+            else{
+                alert(response.message);
+            }
+        }
+
+    })
 }
 </script>
 @yield('customJs')
