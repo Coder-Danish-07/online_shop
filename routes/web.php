@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\admin\ProductControlller;
 use App\Http\Controllers\admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
+use App\Http\Controllers\Admin\ShippingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontController;
@@ -107,6 +108,14 @@ Route::group(['prefix' => 'admin'],function(){
 
         //Product SubCategory Routes
         Route::get('/product-sub-category',[ProductSubCategoryController::class,'index'])->name('product-sub-category.index');
+
+        //Shipping Routes
+        Route::get('/shipping/create',[ShippingController::class,'create'])->name('shipping.create');
+        Route::post('/shipping',[ShippingController::class,'store'])->name('shipping.store');
+        Route::get('/shipping/{id}',[ShippingController::class,'edit'])->name('shipping.edit');
+        Route::put('/shipping/{id}',[ShippingController::class,'update'])->name('shipping.update');
+        Route::delete('/shipping/{id}',[ShippingController::class,'destroy'])->name('shipping.delete');
+
         //temp image route 
         Route::post('/temp-image',[TempImageController::class,'create'])->name('temp_image.create');
 
