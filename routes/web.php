@@ -31,6 +31,8 @@ Route::post('/delete-item',[CartController::class,'deleteItem'])->name('front.de
 Route::get('/checkout',[CartController::class,'checkout'])->name('front.checkout');
 Route::post('/process-checkout',[CartController::class,'processCheckout'])->name('front.processCheckout');
 Route::get('/thanks/{orderId}',[CartController::class,'thankyou'])->name('front.thankyou');
+Route::post('/get-order-summery',[CartController::class,'getOrderSummery'])->name('front.getOrderSummery');
+
 
 // Route::get('/admin/login',[AdminLoginController::class,'index'])->name('admin.login');
 
