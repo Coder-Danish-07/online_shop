@@ -29,3 +29,9 @@ vendor/composer/*
 /vendor/composer/*
 vendor/*
 /vendor/*
+
+/storage/*.key
+/storage/*.log
+/storage/framework/cache/data
+/storage/logs/*.log
+/storage/*.db
