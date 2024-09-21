@@ -15,6 +15,7 @@
 		<!-- Theme style -->
 		<link rel="stylesheet" href="{{asset('admin-assets/css/adminlte.min.css')}}">
 		<link rel="stylesheet" href="{{asset('admin-assets/css/custom.css')}}">
+		<link rel="stylesheet" href="{{asset('admin-assets/css/datetimepicker.css')}}">
 	</head>
 	<body class="hold-transition sidebar-mini">
 		<!-- Site wrapper -->
@@ -87,6 +88,7 @@
 		<script src="{{asset('admin-assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 		<!-- AdminLTE App -->
 		<script src="{{asset('admin-assets/js/adminlte.min.js')}}"></script>
+		<script src="{{asset('admin-assets/js/datetimepicker.js')}}"></script>
 		<!-- AdminLTE for demo purposes -->
 		{{-- <script src="js/demo.js"></script> --}}
 		<script>
