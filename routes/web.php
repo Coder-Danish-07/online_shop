@@ -33,6 +33,8 @@ Route::get('/checkout',[CartController::class,'checkout'])->name('front.checkout
 Route::post('/process-checkout',[CartController::class,'processCheckout'])->name('front.processCheckout');
 Route::get('/thanks/{orderId}',[CartController::class,'thankyou'])->name('front.thankyou');
 Route::post('/get-order-summery',[CartController::class,'getOrderSummery'])->name('front.getOrderSummery');
+Route::post('/apply-discount',[CartController::class,'applyDiscount'])->name('front.applyDiscount');
+Route::post('/remove-discount',[CartController::class,'removeCoupon'])->name('front.removeCoupon');
 
 
 // Route::get('/admin/login',[AdminLoginController::class,'index'])->name('admin.login');
