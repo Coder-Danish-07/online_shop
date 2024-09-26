@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Order;
+use App\Models\OrderItem;
 
 class AuthController extends Controller
 {
@@ -88,6 +90,26 @@ class AuthController extends Controller
 
     public function profile(){
         return view('front.account.profile');
+    }
+
+    public function orders(){
+        $user = Auth::user();
+        $orders = Order::where('user_id',$user->id)->OrderBy('created_at','DESC')->get();
+        $data['orders'] = $orders;
+
+        return view('front.account.orders',$data);
+    }
+
+    public function orderDetail($id){
+        $user = Auth::user();
+        $order = Order::where('user_id',$user->id)->where('id',$id)->first();
+
+        $orderItems = OrderItem::where('order_id',$id)->get();
+        $data['orderItems'] = $orderItems;
+        $data['order'] = $order;
+
+        return view('front.account.order_detail',$data);
+
     }
 
     public function logout(){

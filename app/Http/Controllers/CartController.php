@@ -252,7 +252,7 @@ class CartController extends Controller
             $discount = 0;
             $subTotal = Cart::subtotal(2,'.','');
             $promoCode = '';
-            $discountCodeId = '';
+            $discountCodeId = Null;
 
             //Apply discount here
             if(session()->has('code')){
@@ -294,6 +294,8 @@ class CartController extends Controller
             $order->discount = $discount;
             $order->coupon_code = $promoCode;
             $order->coupon_code_id = $discountCodeId;
+            $order->payment_status = 'not paid';
+            $order->status = 'pending';
             $order->first_name = $request->first_name;
             $order->last_name = $request->last_name;
             $order->email = $request->email;
