@@ -105,6 +105,9 @@ class AuthController extends Controller
         $order = Order::where('user_id',$user->id)->where('id',$id)->first();
 
         $orderItems = OrderItem::where('order_id',$id)->get();
+        $orderItemsCount = OrderItem::where('order_id',$id)->count();
+
+        $data['orderItemsCount'] = $orderItemsCount;
         $data['orderItems'] = $orderItems;
         $data['order'] = $order;
 

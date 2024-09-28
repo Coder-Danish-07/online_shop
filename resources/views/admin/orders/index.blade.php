@@ -63,8 +63,10 @@
                             <td><span class="badge bg-danger">Pending</span></td>
                             @elseif($order->status == 'shipped')
                             <td><span class="badge bg-info">Shipped</span></td>
-                            @else
+                            @elseif($order->status == 'delivered')
                             <td><span class="badge bg-success">Delivered</span></td>
+                            @else
+                            <td><span class="badge bg-danger">Cancelled</span></td>
                             @endif
                             <td>{{number_format($order->grand_total,2)}}</td>
                             <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d M, Y')}}</td>
