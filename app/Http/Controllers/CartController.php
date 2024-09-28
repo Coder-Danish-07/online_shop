@@ -324,6 +324,9 @@ class CartController extends Controller
 
             }
 
+            //Send Order Email
+            OrderEmail($order->id);
+            
             Cart::destroy();
             session()->forget('code');
             session()->flash('success','you have successfully placed in your order');
