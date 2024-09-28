@@ -19,15 +19,25 @@ function ProductImage($product_id){
    return ProductImage::where('product_id',$product_id)->first();
 }
 
-function OrderEmail($orderId){
+function OrderEmail($orderId,$userType="customer"){
    $order = Order::where('id',$orderId)->with('items')->first();
-
+  
+   if($userType == 'customer'){
+      $subject = 'Thanks for your order';
+      $email = $order->email;
+   }
+   else{
+      $subject = 'You have recieved an order.';
+      $email = env('ADMIN_EMAIL');
+   }
+  
    $mailData = [
-      'subject' => 'Thanks for your order',
+      'userType' => $userType,
+      'subject' => $subject,
       'order'   => $order,
    ];
 
-   Mail::to($order->email)->send(new OrderEmail($mailData));
+   Mail::to($email)->send(new OrderEmail($mailData));
    // dd($order);
 }
 

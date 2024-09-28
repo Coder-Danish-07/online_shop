@@ -325,7 +325,7 @@ class CartController extends Controller
             }
 
             //Send Order Email
-            OrderEmail($order->id);
+            OrderEmail($order->id,'customer');
             
             Cart::destroy();
             session()->forget('code');

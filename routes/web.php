@@ -136,6 +136,8 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/orders',[OrderController::class,'index'])->name('orders.index');
         Route::get('/orders/{orderId}',[OrderController::class,'detail'])->name('orders.detail');
         Route::post('/order/change-status/{orderId}',[OrderController::class,'changeOrderStatus'])->name('orders.changeOrderStatus');
+        Route::post('/order/send-invoice/{orderId}',[OrderController::class,'sendInvoiceEmail'])->name('orders.sendInvoiceEmail');
+        
         //temp image route 
         Route::post('/temp-image',[TempImageController::class,'create'])->name('temp_image.create');
 
