@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Wishlist;
 
 class AuthController extends Controller
 {
@@ -119,5 +120,36 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('account.login')
         ->with('success', 'You successfully logged out');
+    }
+
+    public  function wishlist(){
+        
+        $wishlists = Wishlist::where('user_id',Auth::user()->id)->with('product')->get();
+        $data['wishlists'] = $wishlists;
+        return view('front.account.wishlist',$data);
+    }
+
+    public function removeWishlist(Request $request){
+
+        $wishlist = Wishlist::where('user_id',Auth::user()->id)->where('product_id',$request->id)->first();
+        
+        if($wishlist == null){
+         
+            $message = 'Product is already remove in wishlist.';
+            session()->flash('error',$message);
+            return response()->json([
+                'status' => true,
+                'message' => $message
+            ]);
+
+        }
+
+        Wishlist::where('user_id',Auth::user()->id)->where('product_id',$request->id)->delete();
+        session()->flash('success','Product Remove in wishlist successfully');
+        return response()->json([
+            'status' => true,
+            'message' => 'Product Remove in wishlist successfully',
+        ]);
+        
     }
 }
