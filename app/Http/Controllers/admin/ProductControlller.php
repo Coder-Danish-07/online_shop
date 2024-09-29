@@ -179,7 +179,7 @@ class ProductControlller extends Controller
             'category' => 'required|numeric',
             'is_featured' => 'required|in:Yes,No',
         ];
-        if(!empty($request->track_qty) && $request->track_qty='Yes'){
+        if(!empty($request->track_qty) && $request->track_qty=='Yes'){
             $rules['qty'] = 'required|numeric';
         }
 
