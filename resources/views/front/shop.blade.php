@@ -245,6 +245,11 @@
         // Price Filter
         url += '&price_min='+slider.result.from+'&price_max='+slider.result.to;
         
+        // Search filter in header
+        keyword = $('#search').val();
+        if(keyword.length > 0 ){
+           url += '&search='+keyword;
+        }
         // Sorting Filter
         url += '&sort='+$("#sort").val();
         window.location.href = url;
