@@ -13,6 +13,7 @@ use App\Http\Controllers\admin\ProductControlller;
 use App\Http\Controllers\admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
 use App\Http\Controllers\Admin\ShippingController;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontController;
@@ -142,6 +143,14 @@ Route::group(['prefix' => 'admin'],function(){
         Route::post('/order/change-status/{orderId}',[OrderController::class,'changeOrderStatus'])->name('orders.changeOrderStatus');
         Route::post('/order/send-invoice/{orderId}',[OrderController::class,'sendInvoiceEmail'])->name('orders.sendInvoiceEmail');
         
+        //User Route
+        Route::get('/users',[UserController::class,'index'])->name('users.index');
+        Route::get('/users/create',[UserController::class,'create'])->name('users.create');
+        Route::post('/users',[UserController::class,'store'])->name('users.store');
+        Route::get('/users/{user}/edit',[UserController::class,'edit'])->name('users.edit');
+        Route::put('/users/{user}',[UserController::class,'update'])->name('users.update');
+        Route::delete('/users/{user}',[UserController::class,'destroy'])->name('users.delete');
+
         //temp image route 
         Route::post('/temp-image',[TempImageController::class,'create'])->name('temp_image.create');
 
