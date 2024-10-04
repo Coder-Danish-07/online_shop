@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\admin\DiscountCodeController;
 use App\Http\Controllers\admin\OrderController;
+use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\admin\ProductControlller;
 use App\Http\Controllers\admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
@@ -150,6 +151,14 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/users/{user}/edit',[UserController::class,'edit'])->name('users.edit');
         Route::put('/users/{user}',[UserController::class,'update'])->name('users.update');
         Route::delete('/users/{user}',[UserController::class,'destroy'])->name('users.delete');
+
+        //Page Route
+        Route::get('/pages',[PageController::class,'index'])->name('pages.index');
+        Route::get('/pages/create',[PageController::class,'create'])->name('pages.create');
+        Route::post('/pages',[PageController::class,'store'])->name('pages.store');
+        Route::get('/pages/{page}/edit',[PageController::class,'edit'])->name('pages.edit');
+        Route::put('/pages/{page}',[PageController::class,'update'])->name('pages.update');
+        Route::delete('/pages/{page}',[PageController::class,'destroy'])->name('pages.delete');
 
         //temp image route 
         Route::post('/temp-image',[TempImageController::class,'create'])->name('temp_image.create');
