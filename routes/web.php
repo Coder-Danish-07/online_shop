@@ -39,6 +39,7 @@ Route::post('/get-order-summery',[CartController::class,'getOrderSummery'])->nam
 Route::post('/apply-discount',[CartController::class,'applyDiscount'])->name('front.applyDiscount');
 Route::post('/remove-discount',[CartController::class,'removeCoupon'])->name('front.removeCoupon');
 Route::post('add-to-wishlist',[FrontController::class,'addToWishlist'])->name('front.addToWishlist');
+Route::get('/page/{slug}',[FrontController::class,'page'])->name('front.page');
 
 // Route::get('/admin/login',[AdminLoginController::class,'index'])->name('admin.login');
 
