@@ -19,7 +19,8 @@ yarn-error.log
 
 # Ignore everything in the storage directory
 /storage/*
-/public/*
+/public/uploads
+/public/temp
 /storage/framework/*
 storage/logs/laravel.log
 storage/framework/views/*
