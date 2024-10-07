@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Product;
+use App\Models\ProductRating;
 use App\Models\SubCategory;
+use Illuminate\Support\Facades\Validator;
 
 class ShopController extends Controller
 {
@@ -95,5 +97,47 @@ class ShopController extends Controller
         $data['product'] = $product;
         $data['relatedProducts'] = $relatedProducts;
         return view('front.product',$data);
+    }
+
+    public function saveRating(Request $request, $id){
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|min:5',
+            'email' => 'required|email',
+            'rating' => 'required',
+            'comment' => 'required|min:10'
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors(),
+            ]);
+        }
+
+        $count = ProductRating::where('email',$request->email)->count();
+        if($count > 0){
+
+            session()->flash('error','You have already rated this product.');
+            return response()->json([
+                'status' => true,
+            ]);
+        }
+
+        $productRating = new ProductRating;
+        $productRating->product_id = $id;
+        $productRating->username = $request->name;
+        $productRating->email = $request->email;
+        $productRating->comment = $request->comment;
+        $productRating->rating = $request->rating;
+        $productRating->status = 0;
+        $productRating->save();
+
+        session()->flash('success','Thanks for your rating.');
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Thanks for your rating.',
+        ]);
+
     }
 }
