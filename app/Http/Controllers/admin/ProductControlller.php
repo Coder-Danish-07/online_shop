@@ -12,6 +12,7 @@ use App\Models\ProductImage;
 use App\Models\TempImage;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\File;
+use App\Models\ProductRating;
 
 use Image;
 
@@ -267,6 +268,35 @@ class ProductControlller extends Controller
 
         return response()->json([
             'tags' => $tempProduct,
+            'status' => true
+        ]);
+    }
+
+    public function productRatings(Request $request){
+        $ratings = ProductRating::select('product_ratings.*','products.title as productTitle')
+                  ->leftjoin('products','products.id','product_ratings.product_id')
+                  ->orderBy('product_ratings.created_at','DESC');
+
+        if($request->get('keyword') != ""){
+            $ratings = $ratings->orWhere('products.title','like','%'.$request->keyword.'%');
+            $ratings = $ratings->orWhere('product_ratings.username','like','%'.$request->keyword.'%');
+        }
+
+        $ratings = $ratings->paginate(10);
+
+        return view('admin.product.ratings',[
+            'ratings' => $ratings
+        ]);
+    }
+
+    public function changeRatingStatus(Request $request){
+
+        $productRating = ProductRating::find($request->id);
+        $productRating->status = $request->status;
+        $productRating->save();
+
+        session()->flash('success','Status Change successfully.');
+        return response()->json([
             'status' => true
         ]);
     }
