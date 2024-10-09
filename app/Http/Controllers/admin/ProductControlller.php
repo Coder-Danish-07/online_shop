@@ -14,7 +14,9 @@ use App\Models\SubCategory;
 use Illuminate\Support\Facades\File;
 use App\Models\ProductRating;
 
-use Image;
+// use Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class ProductControlller extends Controller
 {
@@ -102,16 +104,26 @@ class ProductControlller extends Controller
                     //Large Thumbnail
                     $sourcePath = public_path().'/temp/'.$tempImageInfo->name;
                     $destPath = public_path().'/uploads/product/large/'.$imageName;
-                    $image = Image::make($sourcePath);
-                    $image->resize(1400, null, function ($constraint) {
-                        $constraint->aspectRatio();
-                    });
+                    // $image = Image::make($sourcePath);
+                    // $image->resize(1400, null, function ($constraint) {
+                    //     $constraint->aspectRatio();
+                    // });
+                    // $image->save($destPath);
+                    $manager = new ImageManager(new Driver());
+                    $image = $manager->read($sourcePath);
+                    $image->scaleDown(1400);
                     $image->save($destPath);
+
+
 
                     //Small Thumbnail
                     $destPath = public_path().'/uploads/product/small/'.$imageName;
-                    $image = Image::make($sourcePath);
-                    $image->fit(300,300);
+                    // $image = Image::make($sourcePath);
+                    // $image->fit(300,300);
+                    // $image->save($destPath);
+                    $manager = new ImageManager(new Driver());
+                    $image = $manager->read($sourcePath);
+                    $image->cover(300,300);
                     $image->save($destPath);
 
                 }

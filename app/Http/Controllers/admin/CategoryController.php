@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Category;
 use App\Models\TempImage;
 use Illuminate\Support\Facades\File;
-use Image;
+// use Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 
 class CategoryController extends Controller
@@ -56,11 +58,15 @@ class CategoryController extends Controller
 
                 // image in thumbnail
                 $dtPath = public_path().'/uploads/category/thumb/'.$newImageName;
-                $img = Image::make($sPath);
+                // $img = Image::make($sPath);
                 // $img->resize(450, 600);
-                $img->fit(450, 600, function ($constraint) {
-                    $constraint->upsize();
-                });
+                // $img->fit(450, 600, function ($constraint) {
+                //     $constraint->upsize();
+                // });
+                // $img->save($dtPath);
+                $manager = new ImageManager(new Driver());
+                $img = $manager->read($sPath);
+                $img->cover(450, 600);
                 $img->save($dtPath);
 
                 $category->image = $newImageName;
@@ -135,12 +141,16 @@ class CategoryController extends Controller
 
                 // image in thumbnail
                 $dtPath = public_path().'/uploads/category/thumb/'.$newImageName;
-                $img = Image::make($sPath);
+                // $img = Image::make($sPath);
                 // $img->resize(450, 600);
                 // add callback functionality to retain maximal original image size
-                $img->fit(450, 600, function ($constraint) {
-                $constraint->upsize();
-                });
+                // $img->fit(450, 600, function ($constraint) {
+                // $constraint->upsize();
+                // });
+                // $img->save($dtPath);
+                $manager = new ImageManager(new Driver());
+                $img = $manager->read($sPath);
+                $img->cover(450, 600);
                 $img->save($dtPath);
 
                 $category->image = $newImageName;
